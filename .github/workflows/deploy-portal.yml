@@ -12,7 +12,7 @@ jobs:
 
     steps:
        
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       name : checkout-repo
       id: checkout-repo  
       
@@ -46,7 +46,7 @@ jobs:
       uses: nwtgck/actions-netlify@v2.0
       with:
         publish-dir: './static-portal'
-        production-branch: master
+        production-branch: main
         github-token: ${{ secrets.GITHUB_TOKEN }}
         deploy-message: "Deploy from GitHub Actions"
         enable-pull-request-comment: false
@@ -60,7 +60,7 @@ jobs:
       # Upload Portal Artifact
     - name: Upload Artifact
       if: ${{steps.generate-portal.outputs.HTTP_CODE == '200' }}
-      uses: actions/upload-artifact@v3.1.1
+      uses: actions/upload-artifact@v4
       with:
         name: static-portal
         path: static-portal
