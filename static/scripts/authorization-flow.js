@@ -29,10 +29,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
                 Username: "REPLACE ME WITH CLIENT ID",
                 Password: "REPLACE ME WITH CLIENT SECRET",
               },
-            },
-            config: {
-              ...defaultConfig.config,
-            },
+            }
           };
         });
 
@@ -71,13 +68,9 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
               ...defaultConfig.auth,
               oauthBearerToken: {
                 ...defaultConfig.auth.oauthBearerToken,
-                AccessToken: step2State?.data?.token,
-                // AccessToken: "REPLACE ME",
+                AccessToken: step2State?.data?.token ? step2State.data.token : "REPLACE ME",
               },
-            },
-            config: {
-              ...defaultConfig.config,
-            },
+            }
           };
         });
 
