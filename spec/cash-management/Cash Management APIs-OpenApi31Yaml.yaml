@@ -9,11 +9,10 @@ info:
   version: "1.0.9"
   x-server-configuration:
     default-environment: Sandbox
-    default-server: Sandbox
     environments:
       - name: Sandbox
         servers:
-          - name: Sandbox
+          - name: default
             url: https://sandbox.swift.com/swift-cash-management/v1
       - name: Pilot
         servers:
