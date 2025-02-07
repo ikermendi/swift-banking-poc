@@ -8,15 +8,15 @@ info:
   version: "1.0.9"
   x-server-configuration:
     default-environment: Authorization
-    default-server: Sandbox Server
+    default-server: Sandbox
     environments:
       - name: Authorization
         servers:
-          - name: Sandbox Server
+          - name: Sandbox
             url: https://sandbox.swift.com/oauth2/v1
-          - name: Pilot Server
+          - name: Pilot
             url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
-          - name: Live Server
+          - name: Live
             url: https://api.swiftnet.sipn.swift.com/oauth2/v1
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
