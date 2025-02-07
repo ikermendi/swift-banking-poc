@@ -1,7 +1,7 @@
 toc:
   - group: Getting Started
     items:
-      - generate: How to Get Started
+      - generate: How to get started
         from: getting-started
       - page: Introduction
         file: introduction.md
