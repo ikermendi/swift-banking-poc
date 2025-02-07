@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  contact:
+    name: Standards & Developer Hub
+    url: https://developer.swift.com
+    email: developer-support@swift.com
+  version: "1.0.9"
+  x-server-configuration:
+    default-environment: Sandbox
+    default-server: OAuth
+    environments:
+      - name: Sandbox
+        servers:
+          - name: OAuth
+            url: https://sandbox.swift.com/oauth2/v1
+      - name: Pilot
+        servers:
+          - name: OAuth
+            url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
+      - name: Live
+        servers:
+          - name: OAuth
+            url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+servers:
+  - url: https://sandbox.swift.com/oauth2/v1
+    description: OAuth2 URL for Sandbox Environment.
+    variables: {}
+  - url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
+    description: OAuth2 URL for Pilot.
+    variables: {}
+  - url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+    description: OAuth2 URL for Live.
+    variables: {}
+paths:
+  /token:
+    post:
+      tags:
+        - Authorization
+      summary: Request OAuth2 token
+      description: Obtain an OAuth2 token using JWT bearer assertion and Basic Auth
+      operationId: getToken
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: urn:ietf:params:oauth:grant-type:jwt-bearer
+                assertion:
+                  type: string
+                  description: The JWT bearer assertion (auto-generated in Pre-request script)
+                  example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1YyI6WyJNSUlEcVRDQ0FwR2dBd0lCQWdJVUFUM01ERVhRY0hyL0NSUzUvVkVkbEN2V21LNHdEUVlKS29aSWh2Y05BUUVMQlFBd1pERUxNQWtHQTFVRUJoTUNSMEl4RHpBTkJnTlZCQWdNQmt4dmJtUnZiakVQTUEwR0ExVUVCd3dHVEc5dVpHOXVNUTB3Q3dZRFZRUUtEQVJFWlcxdk1TUXdJZ1lEVlFRRERCdGtaVzF2TFhOM2FXWjBMWE5oYm1SaWIzZ3RZMjl1YzNWdFpYSXdIaGNOTWpVd01USTBNVEV4TVRJMVdoY05NelV3TVRJeU1URXhNVEkxV2pCa01Rc3dDUVlEVlFRR0V3SkhRakVQTUEwR0ExVUVDQXdHVEc5dVpHOXVNUTh3RFFZRFZRUUhEQVpNYjI1a2IyNHhEVEFMQmdOVkJBb01CRVJsYlc4eEpEQWlCZ05WQkFNTUcyUmxiVzh0YzNkcFpuUXRjMkZ1WkdKdmVDMWpiMjV6ZFcxbGNqQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUwyVCtDck5Tbk85Y3lqeWRWWEZsK0ZoUHR3MXRPTEg3TFBTMkk2Z2hUQXE4dWlTaTcyUWpuQkJ0TFJzMjFBUkdtK3kwLzhLUElxNUluekpFenNtSytCTlJrdnhDNjBnT2VPZWFYLzVEdnVpSVBFOG9MT0tDNmM0OG5YelJyT2pSSmY5RzZEd3lNQjhUeUpnTGZPdXlDNG1rRzJjeWhKQmZ3STVYWEk4RjlOcmVNTkpuZGp3dXNQYytYUHI1ei9XOTlpYk93ald6YVhFaUdtcTJGN29mS1Q3c3BlenNEQ3RkZDMwQ3hQYm9NMGxvRVdzbXFvOXU0SVVtMWFCNSt1SkFFREpDbTRjTVFZbzZ0aVRUVmwvZkJrRlUzZm9xVUZjZ2pSVjV3U1NTSUIzVlMxeEttM3hjUDlvbENibEprL3QrN0VqZlFBd0E3ZUxWSmo4NXFFTUM1RUNBd0VBQWFOVE1GRXdIUVlEVlIwT0JCWUVGSXpvb0krZU9YZmNwMmh1M0lORE4zbzc3ZmFUTUI4R0ExVWRJd1FZTUJhQUZJem9vSStlT1hmY3AyaHUzSU5ETjNvNzdmYVRNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRzNZZ3l2cU1rRzZSV0NVMldIYlZMWlhiMjFVZWRDTjZBajVzVzBIS3NPeG90WmtuMi8wL1BoVTdxdmF1eTZXVVlBeWNvaVdjNjBBakoxeis2OSs5c2pXSU9PY3R2Y3VIcloxTE9IWFdhb2NkeVVDMGRrZmtZckZzRlgxTVZnZDhIZjd0U1FkcVZzUys0dDZtbVc5Wm1TQVBCOGZYTVg5dXN3SXROWFQ5YnZGRG1NdXpETHZXRGNPcjUvUXMwSUVBUEM2TEZpUUNvckg5andtZzNSbElNSGltRFFyaFExMFZMVC8xL3dKTTNhTTA2THRqbWx2b1g3cENsREszWE1KclppdjNmcDBTenJ1QjJpTUhDTm9TWjFTWFllQUU4WEZYQkt5ZjhhOTJsNGxqc1pLN2lHWHAyN3dseHEybDhTT1RjTC85bjRLVWppRUdGNWhqaHErSjA0PSJdfQ.eyJpc3MiOiJrRW02UlVFVDR3NTIwOEtwazNyQWZJUnkyWlVYZThBYyIsImF1ZCI6InNhbmRib3guc3dpZnQuY29tL29hdXRoMi92MS90b2tlbiIsInN1YiI6IkNOPWRlbW8tc3dpZnQtc2FuZGJveC1jb25zdW1lciwgTz1EZW1vLCBMPUxvbmRvbiwgUz1Mb25kb24sIEM9R0IiLCJqdGkiOiI4d2t2a3ZrdWRrdnQiLCJleHAiOjE3Mzg5NDA3NDcsImlhdCI6MTczODkzOTg0NiwibmJmIjoxNzM4OTM5ODQ2fQ.Dg37KxZzKBuiHBf3dp-1tUO9OzrhtI6MtjbpdzMHaA5euNKOFcprQTMstJuUoCsSLixR_tQ_T448VD-s5zYR7E_0gn3EwQMpNmkNGFuox4Xw_Y993oljlRJbb2A_kXR9oaPTzAyOeVKMmZneHTZIBcrDdWLSaaqDsy56fOli3HhAgwQxh8hXNNE8umcTdcP4S6alCU8jMyL-FrDtLe_YPj5xMvmj38BFkcHNkXfyYVMIxKXmr2xdDI7RzI-35P5iWo77T9xlg92RjWfNv50WcbDQejPxb15zYqaH1Dwdq5TVzJknrbG4GUyOmJRKmIe8bhbYoRZj6nDVtJUFFR5RDg
+                scope:
+                  type: string
+                  example: swift.cash.management
+              required:
+                - grant_type
+                - assertion
+                - scope
+      servers:
+        authorization:
+          url: https://sandbox.swift.com/oauth2/v1
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []
+tags:
+  - name: Authorization
