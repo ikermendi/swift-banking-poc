@@ -41,6 +41,38 @@ servers:
     description: URL for Live.
     variables: {}
 paths:
+  /token:
+    post:
+      tags:
+        - Authorization
+      summary: Request OAuth2 token
+      description: Obtain an OAuth2 token using JWT bearer assertion and Basic Auth
+      operationId: getToken
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: urn:ietf:params:oauth:grant-type:jwt-bearer
+                assertion:
+                  type: string
+                  description: The JWT bearer assertion (auto-generated in Pre-request script)
+                  example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1YyI6WyJNSUlEcVRDQ0FwR2dBd0lCQWdJVWZJMThoNURrcS9XejZKZ1dXUmtYZzMrMkEvRXdEUVlKS29aSWh2Y05BUUVMQlFBd1pERUxNQWtHQTFVRUJoTUNSMEl4RHpBTkJnTlZCQWdNQmt4dmJtUnZiakVQTUEwR0ExVUVCd3dHVEc5dVpHOXVNUTB3Q3dZRFZRUUtEQVJFWlcxdk1TUXdJZ1lEVlFRRERCdGtaVzF2TFhOM2FXWjBMWE5oYm1SaWIzZ3RZMjl1YzNWdFpYSXdIaGNOTWpReE1EQTVNVFl3T0RNd1doY05NelF4TURBM01UWXdPRE13V2pCa01Rc3dDUVlEVlFRR0V3SkhRakVQTUEwR0ExVUVDQXdHVEc5dVpHOXVNUTh3RFFZRFZRUUhEQVpNYjI1a2IyNHhEVEFMQmdOVkJBb01CRVJsYlc4eEpEQWlCZ05WQkFNTUcyUmxiVzh0YzNkcFpuUXRjMkZ1WkdKdmVDMWpiMjV6ZFcxbGNqQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQU1JeWd5MkhaTm0rU2lSODJWRjdvd1Y0ZFhqUUdGOUk3V05yZHdYZXFwdkxZNU1WcGg0QlZpN2RObEJrRkxWOGxFckdBblR1d2plVnRlZklmTUxPTllXTVJUOC9wcG5nanVkQVZzc2s1M3EzbmlUQWpKM0plTVFkQkQ1WlcrZTl5UGtsWGgyMHdpcFlPVTlIT09pTTVKcDd0dTdJUHlOS1VtYkZMbDNLc2o0dzRVbkZYYXZNUnR1Zzg1dWtBQVYvNnozZmVUb3BVYTBxamdWcjdkUmthaHdmK1lZZ2JWTC9aZWFGc3RRRmZsSUFQekZGSWFteWNVNWE3eFNTcU9BZjRaemtaRllDWk9SY0tXZkRCMTJGRmFpQllkYldxY2ZnR1JLbnFVSXlGbjVsd3ZzR1cyQy9RcEVPZ2JjNVQ2Yyt5d08ybXRDaTRyY2dFMUNHWllLejVMRUNBd0VBQWFOVE1GRXdIUVlEVlIwT0JCWUVGTVBDMEkrVzFBNmxraU9VSnM5TVdET2ZHOE9GTUI4R0ExVWRJd1FZTUJhQUZNUEMwSStXMUE2bGtpT1VKczlNV0RPZkc4T0ZNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQ3dLb2k2WXNDRjBYbnI0c0k4OVlFOVNxVjN6YU1YVitlNE5FekV6eURMZXY4d0p0MEt4ZEwyRDREQlVWam5OWkUvaFJXMHZkNlhUdzJTYnNXSmEzdjFpTkZLY2JpTlZqMU1pZ0NWcm1oZHFvNTVaZmFwRVp5SVpWNGdPOUN0RWFQcEtDOEZIM003VDFrYzljTC8yZGo5Z1psN3JScVZRVE1NM1FDNzJXdWpLV0I0WUNUaXBmWFphQlJxaEpsYmNZSGtkeE5nNDRjalNIOVAzRDV0RkdTa0ZBbW5EVUlzUEtXZXhxOCtiS0dpY2lzNWtyMDE0ZWVFSGtvMnFEbFBYYkppb0xRUDh6dXJzNWNuTElabkJlaklQWkEwVmFhM1dmSlhvVVkxdzFmVVdSb1hydCtUdjBta2owRE1HSUk5bzlkcG53MkpEckR3bWRYeHVZZEJyU0UwPSJdfQ.eyJpc3MiOiJhZHNhZGFkYSIsImF1ZCI6InNhbmRib3guc3dpZnQuY29tL29hdXRoMi92MS90b2tlbiIsInN1YiI6IkNOPWRlbW8tc3dpZnQtc2FuZGJveC1jb25zdW1lciwgTz1EZW1vLCBMPUxvbmRvbiwgUz1Mb25kb24sIEM9R0IiLCJqdGkiOiJORVVaOW4ydUNteHFzOVhqUC1Nc28iLCJleHAiOjE3MzgyNDY1MDgsImlhdCI6MTczODI0NTYwMywibmJmIjoxNzM4MjQ1NjAzfQ.RbKm7nTcaenElv8YMJCMoeWtqcsf7fwnOKj18Wz4AOTYsxMZP9E2i_jfpEF_1H5JRAmAKTT7moD30FuP0P_YNtCJ-teQ_Giyujfj3sHbUcuEIA7YXOabvKa2RDq2HOnGpSL68GUUNdxrMaI_QivQ1iGckkjWBYKlxkB3lLHNepMDy35h25AdslYXdnRHXGxIjougFXxLfwkHyspSUJAQB-4hN3m7HkPbr91TwPOzUlO96tMRWh1j072X-CGz2_8LS0cYhXfR8X7bb8TZdv1WkTgW0_elMY4dkwwvDvTEziUBraxgO6EW_5GjwGsUg0Thtlp8CHoiwk-6TAeoJoofwA
+                scope:
+                  type: string
+                  example: swift.apitracker
+              required:
+                - grant_type
+                - assertion
+                - scope
+      servers:
+        authorization:
+          url: https://sandbox.swift.com/oauth2/v1
   /accounts:
     get:
       tags:
@@ -6791,12 +6823,17 @@ components:
         - $ref: "#/components/schemas/ReturnReasonProprietary"
       description: Specifies the reason for the return of the transaction.
   securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
     oauthBearerToken:
       type: http
       description: "The access token obtained as a result of OAuth 2.0 flows. This API supports:\n* JWT-Bearer grant type [RFC 7523](https://tools.ietf.org/html/rfc7523)\n\nPlease visit [SWIFT OAuth Token API](https://developer.swift.com/swift-oauth-token-api) page for more information and examples on how to generate an OAuth token.\n\nIn this declaration only the basic security element to transport the bearer token of an OAuth2 process is declared.  \n"
       scheme: bearer
 security:
   - oauthBearerToken: []
+  - basicAuth: []
 tags:
+  - name: Authorization
   - name: Account Information
   - name: Reporting
