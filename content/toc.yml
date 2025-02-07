@@ -1,10 +1,10 @@
 toc:
   - group: Getting Started
     items:
-      - generate: How to get started
-        from: getting-started
       - page: Introduction
         file: introduction.md
+      - generate: How to get started
+        from: getting-started
   - group: Release Notes
     items:
       - page: Release v1.0.9
