@@ -8,15 +8,19 @@ info:
     email: developer-support@swift.com
   version: "1.0.9"
   x-server-configuration:
-    default-environment: OAuth
+    default-environment: Sandbox
     default-server: Sandbox Server
     environments:
-      - name: OAuth
+      - name: Sandbox
         servers:
           - name: Sandbox Server
             url: https://sandbox.swift.com/oauth2/v1
+      - name: Pilot
+        servers:
           - name: Pilot Server
             url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
+      - name: Live
+        servers:
           - name: Live Server
             url: https://api.swiftnet.sipn.swift.com/oauth2/v1
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
