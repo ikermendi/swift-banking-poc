@@ -19,7 +19,7 @@ info:
         servers:
           - name: Pilot Server
             url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
-      - name: Production
+      - name: Live
         servers:
           - name: Live Server
             url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
