@@ -3,14 +3,14 @@ toc:
     items:
       - page: Introduction
         file: introduction.md
+      - group: Release Notes
+        items:
+          - page: Release v1.0.9
+            file: release-notes/1.0.9.md
+          - page: Release v1.0.8
+            file: release-notes/1.0.8.md
       - generate: How to get started
         from: getting-started
-  - group: Release Notes
-    items:
-      - page: Release v1.0.9
-        file: release-notes/1.0.9.md
-      - page: Release v1.0.8
-        file: release-notes/1.0.8.md
   - group: Guided Walkthroughs
     items:
       - page: Calling your first API
