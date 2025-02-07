@@ -7,9 +7,9 @@ toc:
         file: introduction.md
   - group: Release Notes
     items:
-      - page: 1.0.9
+      - page: Release v1.0.9
         file: release-notes/1.0.9.md
-      - page: 1.0.8
+      - page: Release v1.0.8
         file: release-notes/1.0.8.md
   - group: Guided Walkthroughs
     items:
