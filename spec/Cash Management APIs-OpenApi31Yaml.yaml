@@ -9,7 +9,7 @@ info:
   version: "1.0.9"
   x-server-configuration:
     default-environment: Sandbox
-    default-server: Sandbox
+    default-server: Sandbox server
     environments:
       - name: Sandbox
         servers:
