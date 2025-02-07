@@ -29,8 +29,8 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
               ...defaultConfig.auth,
               basicAuth: {
                 ...defaultConfig.auth.basicAuth,
-                Username: "kEm6RUET4w5208Kpk3rAfIRy2ZUXe8Ac",
-                Password: "A5917I9dvkgBbRT6",
+                Username: "CONSUMER KEY",
+                Password: "CONSUMER SECRET",
               },
             }
           };
