@@ -8,6 +8,8 @@ info:
     email: developer-support@swift.com
   version: "1.0.9"
   x-server-configuration:
+    default-environment: Instant Cash Reporting
+    default-server: Sandbox
     environments:
       - name: Instant Cash Reporting
         servers:
