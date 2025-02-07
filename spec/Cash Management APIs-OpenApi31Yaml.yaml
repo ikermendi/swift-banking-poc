@@ -8,24 +8,22 @@ info:
     email: developer-support@swift.com
   version: "1.0.9"
   x-server-configuration:
-    default-environment: Sandbox
-    default-server: Sandbox
     environments:
       - name: Sandbox
         servers:
-          - name: Sandbox
+          - name: default
             url: https://sandbox.swift.com/swift-cash-management/v1
           - name: OAuth
             url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:
-          - name: Pilot
+          - name: default
             url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
           - name: OAuth
             url: https://sandbox.swift.com/oauth2/v1
       - name: Live
         servers:
-          - name: Live
+          - name: default
             url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
           - name: OAuth
             url: https://sandbox.swift.com/oauth2/v1
