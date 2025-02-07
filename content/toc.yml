@@ -3,6 +3,9 @@ toc:
   items:
     - generate: How to Get Started  
       from: getting-started
+    - items:
+      - page: Introduction
+        file: introduction.md
 - group: Guides
   dir: guides
 - group: Guided Walkthroughs

@@ -1,7 +1,0 @@
-toc:
-  - group: My Guides
-    items:
-      - page: Welcome
-        file: welcome.md
-  - group: Release Notes
-    dir: release-notes

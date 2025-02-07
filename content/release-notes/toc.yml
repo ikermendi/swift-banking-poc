@@ -1,7 +1,7 @@
 toc:
   - group: Release Notes
     items:
-      - page: Release 1.0.9
+      - page: 1.0.9
         file: 1.0.9.md
-      - page: Release 1.0.8
+      - page: 1.0.8
         file: 1.0.8.md
