@@ -11,32 +11,38 @@ info:
     environments:
       - name: Sandbox
         servers:
-          - name: default
-            url: https://sandbox.swift.com/swift-cash-management/v1
+          - url: https://sandbox.swift.com/swift-cash-management/v1
           - name: OAuth
             url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:
-          - name: default
-            url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
+          - url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
           - name: OAuth
-            url: https://sandbox.swift.com/oauth2/v1
+            url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
       - name: Live
         servers:
-          - name: default
-            url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
+          - url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
           - name: OAuth
-            url: https://sandbox.swift.com/oauth2/v1
+            url: https://api.swiftnet.sipn.swift.com/oauth2/v1
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
   - url: https://sandbox.swift.com/swift-cash-management/v1
     description: URL for Sandbox Environment.
     variables: {}
+  - url: https://sandbox.swift.com/oauth2/v1
+    description: OAuth2 URL for Sandbox Environment.
+    variables: {}
   - url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
     description: URL for Pilot.
     variables: {}
+  - url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
+    description: OAuth2 URL for Pilot.
+    variables: {}
   - url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
     description: URL for Live.
+    variables: {}
+  - url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+    description: OAuth2 URL for Live.
     variables: {}
 paths:
   /token:
