@@ -13,7 +13,7 @@ info:
     environments:
       - name: Sandbox
         servers:
-          - name: OAuth Server
+          - name: default
             url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:

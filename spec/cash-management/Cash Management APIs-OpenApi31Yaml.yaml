@@ -13,7 +13,7 @@ info:
     environments:
       - name: Sandbox
         servers:
-          - name: Sandbox Server
+          - name: default
             url: https://sandbox.swift.com/swift-cash-management/v1
       - name: Pilot
         servers:
