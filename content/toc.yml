@@ -1,6 +1,10 @@
 toc:
-- generate: Step by Step Tutorial
-  from: getting-started
+- group: Getting Started
+  items:
+    - generate: How to Get Started  
+      from: getting-started
+- group: Guides
+  dir: guides
 - group: Guided Walkthroughs
   items:
     - page: Calling your first API
