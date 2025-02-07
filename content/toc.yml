@@ -6,7 +6,11 @@ toc:
       - page: Introduction
         file: introduction.md
   - group: Release Notes
-    dir: release-notes
+    items:
+      - page: 1.0.9
+        file: release-notes/1.0.9.md
+      - page: 1.0.8
+        file: release-notes/1.0.8.md
   - group: Guided Walkthroughs
     items:
       - page: Calling your first API
