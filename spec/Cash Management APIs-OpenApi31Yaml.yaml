@@ -13,19 +13,19 @@ info:
     environments:
       - name: Sandbox
         servers:
-          - name: Sandbox
+          - name: Sandbox server
             url: https://sandbox.swift.com/swift-cash-management/v1
           # - name: OAuth
           #   url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:
-          - name: Pilot
+          - name: Pilot server
             url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
           # - name: OAuth
           #   url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
       - name: Live
         servers:
-          - name: Live
+          - name: Live server
             url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
           # - name: OAuth
           #   url: https://api.swiftnet.sipn.swift.com/oauth2/v1
