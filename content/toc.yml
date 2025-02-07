@@ -1,17 +1,17 @@
 toc:
-- group: Getting Started
-  items:
-    - generate: How to Get Started  
-      from: getting-started
-    - page: Introduction
-      file: introduction.md
-- group: Guides
-  dir: guides
-- group: Guided Walkthroughs
-  items:
-    - page: Calling your first API
-      file: guided-walkthrough/authorization-flow.md
-- generate: API Endpoints
-  from: endpoints
-- generate: Models
-  from: models
+  - group: Getting Started
+    items:
+      - generate: How to Get Started
+        from: getting-started
+      - page: Introduction
+        file: introduction.md
+  - group: Release Notes
+    dir: release-notes
+  - group: Guided Walkthroughs
+    items:
+      - page: Calling your first API
+        file: guided-walkthrough/authorization-flow.md
+  - generate: API Endpoints
+    from: endpoints
+  - generate: Models
+    from: models
