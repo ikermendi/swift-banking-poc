@@ -15,8 +15,8 @@ info:
         servers:
           - name: default
             url: https://sandbox.swift.com/swift-cash-management/v1
-          # - name: OAuth
-          #   url: https://sandbox.swift.com/oauth2/v1
+          - name: OAuth
+            url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:
           - name: default
