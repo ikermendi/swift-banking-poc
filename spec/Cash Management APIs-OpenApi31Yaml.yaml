@@ -20,14 +20,14 @@ info:
         servers:
           - name: Server
             url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
-          # - name: OAuth
-          #   url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
+          - name: OAuth
+            url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
       - name: Live
         servers:
           - name: Server
             url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
-          # - name: OAuth
-          #   url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+          - name: OAuth
+            url: https://api.swiftnet.sipn.swift.com/oauth2/v1
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
   - url: https://sandbox.swift.com/swift-cash-management/v1
