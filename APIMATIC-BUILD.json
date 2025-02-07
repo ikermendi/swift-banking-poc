@@ -2,7 +2,7 @@
   "$schema": "https://titan.apimatic.io/api/build/schema",
   "buildFileVersion": "1",
   "generatePortal": {
-    "tailIncludes": "<script defer src=\"./static/scripts/authorization-flow.js\"></script><script> document.addEventListener(\"DOMContentLoaded\", (event) => {APIMaticDevPortal.ready(({ registerWorkflow }) => {registerWorkflow('page:guided-walkthrough/authorization-flow','Authorization Flow',AuthorizationFlow);}); });</script>",
+    "tailIncludes": "<script type=\"module\" defer src=\"./static/scripts/authorization-flow.js\"></script><script> document.addEventListener(\"DOMContentLoaded\", (event) => {APIMaticDevPortal.ready(({ registerWorkflow }) => {registerWorkflow('page:guided-walkthrough/authorization-flow','Authorization Flow', AuthorizationFlow);}); });</script>",
     "contentFolder": "./",
     "apiSpecPath": "./spec",
     "apiSpecs": [],

@@ -1,3 +1,5 @@
+import { generateJWT } from './get-assertion.js';
+
 async function AuthorizationFlow(workflowCtx, portal) {
   return {
     "Step 1": {
@@ -19,6 +21,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
+        const jwt_assertion = await generateJWT();
         await portal.setConfig((defaultConfig) => {
           return {
             ...defaultConfig,
@@ -26,40 +29,43 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
               ...defaultConfig.auth,
               basicAuth: {
                 ...defaultConfig.auth.basicAuth,
-                Username: "REPLACE ME WITH CLIENT ID",
-                Password: "REPLACE ME WITH CLIENT SECRET",
+                Username: "kEm6RUET4w5208Kpk3rAfIRy2ZUXe8Ac",
+                Password: "A5917I9dvkgBbRT6",
               },
             }
           };
         });
-
-        // Show the endpoint for getting the token
+   
         return workflowCtx.showEndpoint({
           description:
             "This endpoint retrieves an authorization token required for accessing protected resources in the API. You will need your client ID and client secret to authenticate.",
           endpointPermalink: "$e/Authorization/getToken",
+          args: {
+            grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            assertion: jwt_assertion,
+            scope: "swift.cash.management"
+          },
           verify: (response, setError) => {
             if (response.StatusCode == 401 || response.StatusCode == 400) {
               setError("Authentication Token is Required. Please check your credentials.");
-              return true;
+              return false;
             } else if (response.StatusCode == 200) {
               return true;
             } else {
               setError(
                 "API Call wasn't able to get a valid response. Please try again."
               );
-              return true;
+              return false;
             }
           },
         });
       },
     },
-
     "Step 3": {
       name: "Get the List of Accounts",
       stepCallback: async (stepState) => {
         const step2State = stepState?.["Step 2"];
-
+   
         await portal.setConfig((defaultConfig) => {
           return {
             ...defaultConfig,
@@ -68,12 +74,12 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
               ...defaultConfig.auth,
               oauthBearerToken: {
                 ...defaultConfig.auth.oauthBearerToken,
-                AccessToken: step2State?.data?.token ? step2State.data.token : "REPLACE ME",
+                AccessToken: step2State?.data?.access_token ? step2State.data.access_token : "REPLACE ME",
               },
             }
           };
         });
-
+   
         return workflowCtx.showEndpoint({
           description:
             "This step retrieves a list of accounts associated with your client. The token from the previous step is used for authorization.",
@@ -93,4 +99,6 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
       },
     },
   };
- }
+}
+
+window.AuthorizationFlow = AuthorizationFlow;
