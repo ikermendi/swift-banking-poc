@@ -1,6 +1,6 @@
 {
-    "MergeConfiguration": {
-        "MergeApis": true,
-        "MergedApiName": "Swift Banking API Portal"
-    }    
+  "MergeConfiguration": {
+    "MergeApis": true,
+    "MergedApiName": "Swift Instant Cash Reporting API"
   }
+}
