@@ -8,8 +8,8 @@ info:
     email: developer-support@swift.com
   version: '1.0.9'
   x-server-configuration:
-    default-environment: Token
-    default-server: OAuth Server
+    default-environment: Sandbox
+    default-server: Sandbox
     environments:
       - name: Sandbox
         servers:
