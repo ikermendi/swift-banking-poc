@@ -15,20 +15,20 @@ info:
         servers:
           - name: Sandbox
             url: https://sandbox.swift.com/swift-cash-management/v1
-          - name: OAuth
-            url: https://sandbox.swift.com/oauth2/v1
+          # - name: OAuth
+          #   url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:
           - name: Pilot
             url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
-          - name: OAuth
-            url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
+          # - name: OAuth
+          #   url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
       - name: Live
         servers:
           - name: Live
             url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
-          - name: OAuth
-            url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+          # - name: OAuth
+          #   url: https://api.swiftnet.sipn.swift.com/oauth2/v1
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
   - url: https://sandbox.swift.com/swift-cash-management/v1
