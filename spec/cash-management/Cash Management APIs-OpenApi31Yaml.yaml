@@ -13,16 +13,16 @@ info:
     environments:
       - name: Sandbox
         servers:
-          - name: default
+          - name: Sandbox Server
             url: https://sandbox.swift.com/swift-cash-management/v1
-      - name: Pilot
-        servers:
-          - name: Pilot Server
-            url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
       - name: Production
         servers:
           - name: Live Server
             url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
+      - name: Pilot
+        servers:
+          - name: Pilot Server
+            url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
 
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:

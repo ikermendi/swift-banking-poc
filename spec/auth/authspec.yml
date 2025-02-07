@@ -13,15 +13,15 @@ info:
     environments:
       - name: Sandbox
         servers:
-          - name: default
+          - name: Sandbox
             url: https://sandbox.swift.com/oauth2/v1
       - name: Pilot
         servers:
-          - name: OAuth Server
+          - name: OAuth Test Server
             url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
       - name: Production
         servers:
-          - name: OAuth Server
+          - name: OAuth Live Server
             url: https://api.swiftnet.sipn.swift.com/oauth2/v1
 
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
