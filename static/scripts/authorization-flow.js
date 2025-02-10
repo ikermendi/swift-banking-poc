@@ -34,7 +34,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
-        const step1State = stepState?.["Step 2"];
+        const step1State = stepState?.["Step 1"];
         const consumerKey = step1State?.data?.username;
         console.log("step 1 state", step1State);
         const jwt_assertion = await generateJWT(consumerKey);
