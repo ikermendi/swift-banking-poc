@@ -4,10 +4,6 @@
  * Version: 3.0
  */
 
-// ----- Hardcoded Configuration -----
-const server = 'https://sandbox.swift.com';
-const consumerKey = 'kEm6RUET4w5208Kpk3rAfIRy2ZUXe8Ac';
-
 // ----- Utility Functions -----
 
 /**
@@ -15,12 +11,12 @@ const consumerKey = 'kEm6RUET4w5208Kpk3rAfIRy2ZUXe8Ac';
  * @returns {string} Secure random JTI
  */
 function generateSecureJTI() {
-    let newJti = "";
-    let charset = "abcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < 12; i++) {
-        newJti += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
-    return newJti;
+  let newJti = "";
+  let charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 12; i++) {
+    newJti += charset.charAt(Math.floor(Math.random() * charset.length));
+  }
+  return newJti;
 }
 
 const sandboxPrivateKey = `-----BEGIN PRIVATE KEY-----
@@ -98,10 +94,10 @@ function pemToArrayBuffer(pem) {
  * @returns {string} The base64url encoded string.
  */
 function base64UrlEncode(input) {
-    return btoa(input)
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
+  return btoa(input)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
 }
 
 /**
@@ -110,12 +106,12 @@ function base64UrlEncode(input) {
  * @returns {string} The base64url encoded string.
  */
 function base64UrlEncodeBuffer(buffer) {
-    const bytes = new Uint8Array(buffer);
-    let binary = '';
-    for (let i = 0; i < bytes.byteLength; i++) {
-        binary += String.fromCharCode(bytes[i]);
-    }
-    return base64UrlEncode(binary);
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return base64UrlEncode(binary);
 }
 
 /**
@@ -124,20 +120,20 @@ function base64UrlEncodeBuffer(buffer) {
  * @returns {Promise<CryptoKey>} A promise that resolves with the CryptoKey.
  */
 async function importPrivateKey(pemKey) {
-    const keyBuffer = pemToArrayBuffer(pemKey);
-    if (!window.crypto || !window.crypto.subtle) {
-      throw new Error("Web Crypto API is not available in this environment.");
-    }
-    return crypto.subtle.importKey(
-        "pkcs8",
-        keyBuffer,
-        {
-            name: "RSASSA-PKCS1-v1_5",
-            hash: { name: "SHA-256" }
-        },
-        false,
-        ["sign"]
-    );
+  const keyBuffer = pemToArrayBuffer(pemKey);
+  if (!window.crypto || !window.crypto.subtle) {
+    throw new Error("Web Crypto API is not available in this environment.");
+  }
+  return crypto.subtle.importKey(
+    "pkcs8",
+    keyBuffer,
+    {
+      name: "RSASSA-PKCS1-v1_5",
+      hash: { name: "SHA-256" }
+    },
+    false,
+    ["sign"]
+  );
 }
 
 // ----- JWT Creation -----
@@ -213,30 +209,30 @@ async function createJWT(options) {
  * Fetches the security credentials from the sandbox server, creates the JWT,
  * and (in this example) logs it to the console.
  */
-export async function generateJWT() {
-    try {
-        // Fetch credentials from the sandbox server
-        // const { privateKey, certificate } = await fetchSecurityCredentials(server);
+export async function generateJWT(consumerKey) {
+  try {
+    // Fetch credentials from the sandbox server
+    // const { privateKey, certificate } = await fetchSecurityCredentials(server);
 
-        const privateKey = sandboxPrivateKey;
-        const certificate = sandboxCertificate;
+    const privateKey = sandboxPrivateKey;
+    const certificate = sandboxCertificate;
 
-        // Create the JWT using the fetched credentials and hardcoded consumer key
-        const jwt = await createJWT({
-            privateKey,
-            certificate,
-            consumerKey
-        });
+    // Create the JWT using the fetched credentials and hardcoded consumer key
+    const jwt = await createJWT({
+      privateKey,
+      certificate,
+      consumerKey
+    });
 
-        // In Postman these would be stored in collection variables.
-        // Here we log the final JWT and its payload (JTI portion) to the console.
-        console.log('JWT generated successfully');
-        console.log('sandbox-dynamic-jwt:', jwt);
-        console.log('jti:', jwt.split('.')[1]); // the payload portion (base64url encoded)
+    // In Postman these would be stored in collection variables.
+    // Here we log the final JWT and its payload (JTI portion) to the console.
+    console.log('JWT generated successfully');
+    console.log('sandbox-dynamic-jwt:', jwt);
+    console.log('jti:', jwt.split('.')[1]); // the payload portion (base64url encoded)
 
-        return jwt;
-    } catch (error) {
-        console.error('JWT generation failed:', error);
-        throw error;
-    }
+    return jwt;
+  } catch (error) {
+    console.error('JWT generation failed:', error);
+    throw error;
+  }
 }

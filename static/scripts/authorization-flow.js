@@ -5,6 +5,19 @@ async function AuthorizationFlow(workflowCtx, portal) {
     "Step 1": {
       name: "How to Get Access Token",
       stepCallback: async () => {
+        await portal.setConfig((defaultConfig) => {
+          return {
+            ...defaultConfig,
+            auth: {
+              ...defaultConfig.auth,
+              basicAuth: {
+                ...defaultConfig.auth.basicAuth,
+                Username: "CONSUMER KEY",
+                Password: "CONSUMER SECRET",
+              },
+            }
+          };
+        });
         return workflowCtx.showContent(`
 ## Welcome to Your First API Call!
 
@@ -21,7 +34,10 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
-        const jwt_assertion = await generateJWT();
+        const step1State = stepState?.["Step 2"];
+        const consumerKey = step1State?.data?.username;
+        console.log("step 1 state", step1State);
+        const jwt_assertion = await generateJWT(consumerKey);
         await portal.setConfig((defaultConfig) => {
           return {
             ...defaultConfig,
@@ -35,7 +51,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
             }
           };
         });
-   
+
         return workflowCtx.showEndpoint({
           description:
             "This endpoint retrieves an authorization token required for accessing protected resources in the API. You will need your client ID and client secret to authenticate.",
@@ -65,7 +81,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
       name: "Get the List of Accounts",
       stepCallback: async (stepState) => {
         const step2State = stepState?.["Step 2"];
-   
+
         await portal.setConfig((defaultConfig) => {
           return {
             ...defaultConfig,
@@ -79,7 +95,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
             }
           };
         });
-   
+
         return workflowCtx.showEndpoint({
           description:
             "This step retrieves a list of accounts associated with your client. The token from the previous step is used for authorization.",
