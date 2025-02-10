@@ -84,7 +84,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
             "This step retrieves a list of accounts associated with your client. The token from the previous step is used for authorization.",
           endpointPermalink: "$e/Account%20Information/getAccounts",
           args: {
-            "X-BIC": "sqhqbebb",
+            "X-BIC": "swhqbebb",
           },
           verify: (response, setError) => {
             if (response.StatusCode != 200) {
