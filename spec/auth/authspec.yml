@@ -15,6 +15,14 @@ info:
         servers:
           - name: OAuth
             url: https://sandbox.swift.com/oauth2/v1
+      - name: Production
+        servers:
+          - name: OAuth
+            url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+      - name: Pilot
+        servers:
+          - name: OAuth
+            url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
 
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
