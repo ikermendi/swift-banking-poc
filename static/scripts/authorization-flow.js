@@ -21,7 +21,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
-≈        await portal.setConfig((defaultConfig) => {
+        await portal.setConfig((defaultConfig) => {
         return {
           ...defaultConfig,
           auth: {
