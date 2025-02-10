@@ -1,10 +1,12 @@
 toc:
   - group: Getting Started
     items:
-      - page: Introduction
-        file: introduction.md
-      - generate: How to get started
+      - generate: Introduction
         from: getting-started
+      - group: Flows
+        items:
+        - page: Account Balance
+          file: account-balance.md
       - group: Release Notes
         items:
           - page: Release v1.0.9

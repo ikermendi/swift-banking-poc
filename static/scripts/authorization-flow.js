@@ -46,7 +46,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
           },
           verify: (response, setError) => {
             if (response.StatusCode == 401 || response.StatusCode == 400) {
-              setError("Authentication Token is Required. Please check your credentials.");
+              setError("Invalid client ID or client secret. Please try again.");
               return false;
             } else if (response.StatusCode == 200) {
               return true;
