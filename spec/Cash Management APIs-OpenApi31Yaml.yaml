@@ -79,8 +79,7 @@ paths:
                 - assertion
                 - scope
       servers:
-        authorization:
-          url: https://sandbox.swift.com/oauth2/v1
+        - url: https://sandbox.swift.com/oauth2/v1
   /accounts:
     get:
       tags:
