@@ -84,7 +84,6 @@ function pemToArrayBuffer(pem) {
   for (let i = 0; i < len; i++) {
     bytes[i] = binaryString.charCodeAt(i);
   }
-  console.log('ArrayBuffer:', bytes.buffer);
   return bytes.buffer;
 }
 
@@ -153,8 +152,6 @@ async function createJWT(options) {
     expirationTime = 900, // 15 minutes
   } = options;
 
-  console.log('Creating JWT with options:', options);
-
   const currentTime = Date.now();
   const issuedAt = Math.ceil(currentTime / 1000) - 1;
   const payload = {
@@ -167,27 +164,19 @@ async function createJWT(options) {
     nbf: issuedAt
   };
 
-  console.log('JWT payload:', payload);
-
   const header = {
     typ: 'JWT',
     alg: 'RS256',
     x5c: [certificate.replace(/\s+/g, '')]
   };
 
-  console.log('JWT header:', header);
-
   // Build the JWT signing input
   const encodedHeader = base64UrlEncode(JSON.stringify(header));
   const encodedPayload = base64UrlEncode(JSON.stringify(payload));
   const signingInput = `${encodedHeader}.${encodedPayload}`;
 
-  console.log('JWT signing input:', signingInput);
-
   // Import the private key
   const cryptoKey = await importPrivateKey(privateKey);
-
-  console.log('Private key imported successfully');
 
   // Sign the JWT using RSASSA-PKCS1-v1_5 with SHA-256
   const encoder = new TextEncoder();
@@ -199,21 +188,14 @@ async function createJWT(options) {
   );
   const encodedSignature = base64UrlEncodeBuffer(signatureBuffer);
 
-  console.log('JWT signature:', encodedSignature);
-
   return `${signingInput}.${encodedSignature}`;
 }
 
 /**
  * Main execution function.
- * Fetches the security credentials from the sandbox server, creates the JWT,
- * and (in this example) logs it to the console.
  */
 export async function generateJWT(consumerKey) {
   try {
-    // Fetch credentials from the sandbox server
-    // const { privateKey, certificate } = await fetchSecurityCredentials(server);
-
     const privateKey = sandboxPrivateKey;
     const certificate = sandboxCertificate;
 
@@ -223,12 +205,6 @@ export async function generateJWT(consumerKey) {
       certificate,
       consumerKey
     });
-
-    // In Postman these would be stored in collection variables.
-    // Here we log the final JWT and its payload (JTI portion) to the console.
-    console.log('JWT generated successfully');
-    console.log('sandbox-dynamic-jwt:', jwt);
-    console.log('jti:', jwt.split('.')[1]); // the payload portion (base64url encoded)
 
     return jwt;
   } catch (error) {
