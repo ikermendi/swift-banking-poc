@@ -22,18 +22,16 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
         await portal.setConfig((defaultConfig) => {
-        return {
-          ...defaultConfig,
-          auth: {
-            ...defaultConfig.auth,
-            basicAuth: {
-              ...defaultConfig.auth.basicAuth,
-              Username: "CONSUMER KEY",
-              Password: "CONSUMER SECRET",
-            },
-          }
-        };
-      });
+          return {
+            ...defaultConfig,
+            auth: {
+              ...defaultConfig.auth,
+              basicAuth: {
+                ...defaultConfig.auth.basicAuth,
+              },
+            }
+          };
+        });
 
         console.log("portal", JSON.stringify(portal));
 
@@ -43,7 +41,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
           endpointPermalink: "$e/Authorization/getToken",
           args: {
             grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-            assertion: await generateJWT("1234"),
+            assertion: await generateJWT("L7SvwQoVAiiESNsmQ8uTG7c8lJAbr0Vm"),
             scope: "swift.cash.management"
           },
           verify: (response, setError) => {
