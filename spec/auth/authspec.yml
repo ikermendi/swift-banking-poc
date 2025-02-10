@@ -9,7 +9,6 @@ info:
   version: "1.0.9"
   x-server-configuration:
     default-environment: Sandbox
-    default-server: OAuth
     environments:
       - name: Sandbox
         servers:
