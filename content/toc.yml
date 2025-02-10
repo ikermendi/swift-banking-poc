@@ -6,7 +6,7 @@ toc:
       - group: Flows
         items:
         - page: Account Balance
-          file: account-balance.md
+          file: flows/account-balance.md
       - group: Release Notes
         items:
           - page: Release v1.0.9
