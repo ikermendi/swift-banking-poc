@@ -1,6 +1,7 @@
 {
   "MergeConfiguration": {
     "MergeApis": true,
+    "MergeOrderOfDirectories": ["cash-management", "auth"],
     "MergedApiName": "Instant Cash Management API"
   }
 }
