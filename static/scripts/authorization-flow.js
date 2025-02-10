@@ -18,6 +18,7 @@ async function AuthorizationFlow(workflowCtx, portal) {
             }
           };
         });
+
         return workflowCtx.showContent(`
 ## Welcome to Your First API Call!
 
@@ -34,10 +35,8 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
-        const step1State = stepState?.["Step 1"];
-        const consumerKey = step1State?.data?.username;
-        console.log("step 1 state", step1State);
-        const jwt_assertion = await generateJWT(consumerKey);
+        const step2State = stepState?.["Step 2"];
+        console.log("step 2 state", step2State);
         await portal.setConfig((defaultConfig) => {
           return {
             ...defaultConfig,
@@ -58,10 +57,13 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
           endpointPermalink: "$e/Authorization/getToken",
           args: {
             grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-            assertion: jwt_assertion,
+            assertion: await generateJWT(step2State?.data?.username),
             scope: "swift.cash.management"
           },
           verify: (response, setError) => {
+            const step2State = stepState?.["Step 2"];
+            console.log("step 2 state", step2State);
+
             if (response.StatusCode == 401 || response.StatusCode == 400) {
               setError("Authentication Token is Required. Please check your credentials.");
               return false;
