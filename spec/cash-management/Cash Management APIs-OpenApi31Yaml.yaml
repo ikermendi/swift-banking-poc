@@ -1,6 +1,7 @@
 openapi: 3.1.0
 info:
   title: Cash Management APIs
+  description: "The API is used by the consumer of the API to get account information and reporting of global, multi-country Account statement and Debit/Credit entries. At any time during the operating hours of the system, the account owner can request to get information about the account(s) that the account servicer maintains for the member. For example, this may be necessary in order to perform the appropriate liquidity management and the funds transfers between accounts. The API currently supports endpoint to get entries reported to the account, and/or to provide the owner with balance information on the account at a given point in time.\n\n`The API supports following functionalities:`\n\n* Retrieve list of account with balance information\n* Retrieve details of a specific account\n* Retrieve debit/credit entries reported to the account pending and booked items on the account at a given point in time to enable intraday reconciliation\n* Get account statement by the account owner, or authorised party, of the entries booked to the account, and to provide the owner with balance information on the account at a given point in time\n\n`Error Responses`\n\nThe API uses common HTTP status codes in the response header to indicate success or failure. Specific error code and description will be returned in the custom error schema.\n\n`Query Parameters`\n\nEach URL query parameter specifies an API query parameter that must be URL encoded.\n\n**v1.0.9 Release Notes**\n* All schema object containing \"oneOf\" syntax is updated to align with open API specification.\n* The header parameter X-ServiceProvider will be changed to X-UserContext.\n* PostalAddressUnstructured.country has been changed to optional.\n* An element CashAccount41.alternate_identification is added as a resource identifier where account identification cannot be used as a resource identification.\n* The element CashAccount41.linked_account  is changed to CashAccount41.related_account.\n* The elements CashCurrentBalance1.balance_type, CashAvailableBalance1.balance_type, CashForwardAvailableBalance1.balance_type has been dropped.\n* Batch indicator block to statement lines is added.\n* Return information block is added to Statement.\n* The charges block is added to Statement Entry details level.\n* The size of the element \"identification\" in both Statements and Statement Lines has been increased to 36 from 35 to accommodate UUID.\n\n**v1.0.8 Release Notes**\n* The query parameter account-servicer is added to the getAccounts endpoint.\n* Party identification object (Organisation/Person) in Statements and Statement Lines is changed to ISO component style. This is to address use case where identification of object is not always possible when only party name is available.\n* Account Identification in Statements and Statement Lines is aligned with ISO component.\n* Remittance Information, Purpose and Bank Transaction Code is added to Statement Lines.\n* The element interest, related_account is added to Statements    \n"
   contact:
     name: Standards & Developer Hub
     url: https://developer.swift.com
@@ -10,76 +11,31 @@ info:
     default-environment: Sandbox
     default-server: Server
     environments:
-      - name: Sandbox
+      - name: Production
         servers:
           - name: Server
-            url: https://sandbox.swift.com/swift-cash-management/v1
-          - name: OAuth
-            url: https://sandbox.swift.com/oauth2/v1
+            url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
       - name: Pilot
         servers:
           - name: Server
             url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
-          - name: OAuth
-            url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
-      - name: Live
+      - name: Sandbox
         servers:
           - name: Server
-            url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
-          - name: OAuth
-            url: https://api.swiftnet.sipn.swift.com/oauth2/v1
+            url: https://sandbox.swift.com/swift-cash-management/v1
+
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
   - url: https://sandbox.swift.com/swift-cash-management/v1
     description: URL for Sandbox Environment.
     variables: {}
-  - url: https://sandbox.swift.com/oauth2/v1
-    description: OAuth2 URL for Sandbox Environment.
-    variables: {}
   - url: https://api-test.swiftnet.sipn.swift.com/swift-cash-management-pilot/v1
     description: URL for Pilot.
-    variables: {}
-  - url: https://api-test.swiftnet.sipn.swift.com/oauth2/v1
-    description: OAuth2 URL for Pilot.
     variables: {}
   - url: https://api.swiftnet.sipn.swift.com/swift-cash-management/v1
     description: URL for Live.
     variables: {}
-  - url: https://api.swiftnet.sipn.swift.com/oauth2/v1
-    description: OAuth2 URL for Live.
-    variables: {}
 paths:
-  /token:
-    post:
-      tags:
-        - Authorization
-      summary: Request OAuth2 token
-      description: Obtain an OAuth2 token using JWT bearer assertion and Basic Auth
-      operationId: getToken
-      security:
-        - basicAuth: []
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                grant_type:
-                  type: string
-                  example: urn:ietf:params:oauth:grant-type:jwt-bearer
-                assertion:
-                  type: string
-                  description: The JWT bearer assertion (auto-generated in Pre-request script)
-                  example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1YyI6WyJNSUlEcVRDQ0FwR2dBd0lCQWdJVUFUM01ERVhRY0hyL0NSUzUvVkVkbEN2V21LNHdEUVlKS29aSWh2Y05BUUVMQlFBd1pERUxNQWtHQTFVRUJoTUNSMEl4RHpBTkJnTlZCQWdNQmt4dmJtUnZiakVQTUEwR0ExVUVCd3dHVEc5dVpHOXVNUTB3Q3dZRFZRUUtEQVJFWlcxdk1TUXdJZ1lEVlFRRERCdGtaVzF2TFhOM2FXWjBMWE5oYm1SaWIzZ3RZMjl1YzNWdFpYSXdIaGNOTWpVd01USTBNVEV4TVRJMVdoY05NelV3TVRJeU1URXhNVEkxV2pCa01Rc3dDUVlEVlFRR0V3SkhRakVQTUEwR0ExVUVDQXdHVEc5dVpHOXVNUTh3RFFZRFZRUUhEQVpNYjI1a2IyNHhEVEFMQmdOVkJBb01CRVJsYlc4eEpEQWlCZ05WQkFNTUcyUmxiVzh0YzNkcFpuUXRjMkZ1WkdKdmVDMWpiMjV6ZFcxbGNqQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUwyVCtDck5Tbk85Y3lqeWRWWEZsK0ZoUHR3MXRPTEg3TFBTMkk2Z2hUQXE4dWlTaTcyUWpuQkJ0TFJzMjFBUkdtK3kwLzhLUElxNUluekpFenNtSytCTlJrdnhDNjBnT2VPZWFYLzVEdnVpSVBFOG9MT0tDNmM0OG5YelJyT2pSSmY5RzZEd3lNQjhUeUpnTGZPdXlDNG1rRzJjeWhKQmZ3STVYWEk4RjlOcmVNTkpuZGp3dXNQYytYUHI1ei9XOTlpYk93ald6YVhFaUdtcTJGN29mS1Q3c3BlenNEQ3RkZDMwQ3hQYm9NMGxvRVdzbXFvOXU0SVVtMWFCNSt1SkFFREpDbTRjTVFZbzZ0aVRUVmwvZkJrRlUzZm9xVUZjZ2pSVjV3U1NTSUIzVlMxeEttM3hjUDlvbENibEprL3QrN0VqZlFBd0E3ZUxWSmo4NXFFTUM1RUNBd0VBQWFOVE1GRXdIUVlEVlIwT0JCWUVGSXpvb0krZU9YZmNwMmh1M0lORE4zbzc3ZmFUTUI4R0ExVWRJd1FZTUJhQUZJem9vSStlT1hmY3AyaHUzSU5ETjNvNzdmYVRNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRzNZZ3l2cU1rRzZSV0NVMldIYlZMWlhiMjFVZWRDTjZBajVzVzBIS3NPeG90WmtuMi8wL1BoVTdxdmF1eTZXVVlBeWNvaVdjNjBBakoxeis2OSs5c2pXSU9PY3R2Y3VIcloxTE9IWFdhb2NkeVVDMGRrZmtZckZzRlgxTVZnZDhIZjd0U1FkcVZzUys0dDZtbVc5Wm1TQVBCOGZYTVg5dXN3SXROWFQ5YnZGRG1NdXpETHZXRGNPcjUvUXMwSUVBUEM2TEZpUUNvckg5andtZzNSbElNSGltRFFyaFExMFZMVC8xL3dKTTNhTTA2THRqbWx2b1g3cENsREszWE1KclppdjNmcDBTenJ1QjJpTUhDTm9TWjFTWFllQUU4WEZYQkt5ZjhhOTJsNGxqc1pLN2lHWHAyN3dseHEybDhTT1RjTC85bjRLVWppRUdGNWhqaHErSjA0PSJdfQ.eyJpc3MiOiJrRW02UlVFVDR3NTIwOEtwazNyQWZJUnkyWlVYZThBYyIsImF1ZCI6InNhbmRib3guc3dpZnQuY29tL29hdXRoMi92MS90b2tlbiIsInN1YiI6IkNOPWRlbW8tc3dpZnQtc2FuZGJveC1jb25zdW1lciwgTz1EZW1vLCBMPUxvbmRvbiwgUz1Mb25kb24sIEM9R0IiLCJqdGkiOiI4d2t2a3ZrdWRrdnQiLCJleHAiOjE3Mzg5NDA3NDcsImlhdCI6MTczODkzOTg0NiwibmJmIjoxNzM4OTM5ODQ2fQ.Dg37KxZzKBuiHBf3dp-1tUO9OzrhtI6MtjbpdzMHaA5euNKOFcprQTMstJuUoCsSLixR_tQ_T448VD-s5zYR7E_0gn3EwQMpNmkNGFuox4Xw_Y993oljlRJbb2A_kXR9oaPTzAyOeVKMmZneHTZIBcrDdWLSaaqDsy56fOli3HhAgwQxh8hXNNE8umcTdcP4S6alCU8jMyL-FrDtLe_YPj5xMvmj38BFkcHNkXfyYVMIxKXmr2xdDI7RzI-35P5iWo77T9xlg92RjWfNv50WcbDQejPxb15zYqaH1Dwdq5TVzJknrbG4GUyOmJRKmIe8bhbYoRZj6nDVtJUFFR5RDg
-                scope:
-                  type: string
-                  example: swift.cash.management
-              required:
-                - grant_type
-                - assertion
-                - scope
-      servers:
-        - url: https://sandbox.swift.com/oauth2/v1
   /accounts:
     get:
       tags:
@@ -6830,17 +6786,12 @@ components:
         - $ref: "#/components/schemas/ReturnReasonProprietary"
       description: Specifies the reason for the return of the transaction.
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
     oauthBearerToken:
       type: http
       description: "The access token obtained as a result of OAuth 2.0 flows. This API supports:\n* JWT-Bearer grant type [RFC 7523](https://tools.ietf.org/html/rfc7523)\n\nPlease visit [SWIFT OAuth Token API](https://developer.swift.com/swift-oauth-token-api) page for more information and examples on how to generate an OAuth token.\n\nIn this declaration only the basic security element to transport the bearer token of an OAuth2 process is declared.  \n"
       scheme: bearer
 security:
   - oauthBearerToken: []
-  - basicAuth: []
 tags:
-  - name: Authorization
   - name: Account Information
   - name: Reporting
