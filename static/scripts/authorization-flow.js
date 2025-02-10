@@ -21,20 +21,21 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
-        console.log("default config", defaultConfig);
-        await portal.setConfig((defaultConfig) => {
-          return {
-            ...defaultConfig,
-            auth: {
-              ...defaultConfig.auth,
-              basicAuth: {
-                ...defaultConfig.auth.basicAuth,
-                Username: "CONSUMER KEY",
-                Password: "CONSUMER SECRET",
-              },
-            }
-          };
-        });
+≈        await portal.setConfig((defaultConfig) => {
+        return {
+          ...defaultConfig,
+          auth: {
+            ...defaultConfig.auth,
+            basicAuth: {
+              ...defaultConfig.auth.basicAuth,
+              Username: "CONSUMER KEY",
+              Password: "CONSUMER SECRET",
+            },
+          }
+        };
+      });
+
+        console.log("portal", JSON.stringify(portal));
 
         return workflowCtx.showEndpoint({
           description:
