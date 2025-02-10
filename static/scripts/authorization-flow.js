@@ -5,20 +5,6 @@ async function AuthorizationFlow(workflowCtx, portal) {
     "Step 1": {
       name: "How to Get Access Token",
       stepCallback: async () => {
-        await portal.setConfig((defaultConfig) => {
-          return {
-            ...defaultConfig,
-            auth: {
-              ...defaultConfig.auth,
-              basicAuth: {
-                ...defaultConfig.auth.basicAuth,
-                Username: "CONSUMER KEY",
-                Password: "CONSUMER SECRET",
-              },
-            }
-          };
-        });
-
         return workflowCtx.showContent(`
 ## Welcome to Your First API Call!
 
@@ -35,8 +21,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
     "Step 2": {
       name: "Get Authorization Token",
       stepCallback: async (stepState) => {
-        const step2State = stepState?.["Step 2"];
-        console.log("step 2 state", step2State);
+        console.log("default config", defaultConfig);
         await portal.setConfig((defaultConfig) => {
           return {
             ...defaultConfig,
@@ -57,13 +42,10 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
           endpointPermalink: "$e/Authorization/getToken",
           args: {
             grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-            assertion: await generateJWT(step2State?.data?.username),
+            assertion: await generateJWT("1234"),
             scope: "swift.cash.management"
           },
           verify: (response, setError) => {
-            const step2State = stepState?.["Step 2"];
-            console.log("step 2 state", step2State);
-
             if (response.StatusCode == 401 || response.StatusCode == 400) {
               setError("Authentication Token is Required. Please check your credentials.");
               return false;
@@ -103,7 +85,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
             "This step retrieves a list of accounts associated with your client. The token from the previous step is used for authorization.",
           endpointPermalink: "$e/Account%20Information/getAccounts",
           args: {
-            "X-BIC": "REPLACE ME",
+            "X-BIC": "sqhqbebb",
           },
           verify: (response, setError) => {
             if (response.StatusCode != 200) {
