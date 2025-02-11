@@ -3,7 +3,7 @@ import { generateJWT } from './get-assertion.js';
 async function AuthorizationFlow(workflowCtx, portal) {
   return {
     "Step 1": {
-      name: "How to Get Access Token",
+      name: "Introduction",
       stepCallback: async () => {
         return workflowCtx.showContent(`
 ## Welcome to Your First API Call!
