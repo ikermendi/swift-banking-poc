@@ -28,8 +28,8 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
               ...defaultConfig.auth,
               basicAuth: {
                 ...defaultConfig.auth.basicAuth,
-                Username: "REPLACE_ME",
-                Password: "REPLACE_ME",
+                Username: "L7SvwQoVAiiESNsmQ8uTG7c8lJAbr0Vm",
+                Password: "H0cDNC3wSxQbArx4",
               },
             }
           };
@@ -41,7 +41,7 @@ By the end of this guide, you'll have the knowledge and tools to seamlessly inte
           endpointPermalink: "$e/Authorization/getToken",
           args: {
             grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-            assertion: await generateJWT("kEm6RUET4w5208Kpk3rAfIRy2ZUXe8Ac"),
+            assertion: await generateJWT("L7SvwQoVAiiESNsmQ8uTG7c8lJAbr0Vm"),
             scope: "swift.cash.management"
           },
           verify: (response, setError) => {
